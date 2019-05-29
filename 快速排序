@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+int n,m;
+int r[100];
+int sortin(int &n,int &m,int r[])
+{
+    int i;
+    printf("需要快速排序的数有几个\n");
+    scanf("%d",&m);
+    n=m+1;
+    printf("依次输入需要排序的数\n");
+    for(i=1; i<=1; i++)
+        scanf("%ld",r[i]);
+}
+int low=1,high=m;
+
+int partition1(int r[],int low,int high)
+{
+    int pivotkey;
+    r[0]=r[low];
+    pivotkey=r[low];
+    while(low<high)
+    {
+        while(low<high&&r[high]>=pivotkey)--high;
+        r[low]=r[high];
+        while(low<high&&r[low]<=pivotkey)++low;
+        r[high]=r[low];
+    }//while
+    r[low]=r[0];
+    return low;
+}
+void Qsort(int r[],int low,int high)
+{
+    int pivotloc;
+    if(low<high)
+    {
+        pivotloc=partition1(r,low,high);
+        Qsort(r,low,pivotloc-1);
+        Qsort(r,pivotloc+1,high);
+    }
+}
+void Quicksort(int r[])
+{
+    Qsort(r,1,m);
+}
+
+int main()
+{
+    int i;
+    sortin(n,m,r);
+    partition1(r,low,high);
+    Qsort(r,low,high);
+    Quicksort(r);
+    for(i=1; i<=n; i++)
+        cout <<r[i]<< endl;
+    return 0;
+}
