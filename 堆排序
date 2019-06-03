@@ -1,0 +1,61 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+int r[100];
+int k;
+void putin(int r[],int &k)
+{
+ int i;
+ printf("输入需要排序的数的个数\n");
+ scanf("%d",&k);
+ printf("依次输入需要排序的数\n");
+ for(i=1;i<=k;i++)
+    scanf("%d",&r[i]);
+}
+
+void heapadjust(int r[],int s,int m)
+{
+    int rc,j;
+    rc=r[s];
+    for(j=2*s;j<=m;j*=2)
+    {
+        if(j<m&&r[j]<r[j+1])++j;
+        if(rc>=r[j]) break;
+        r[s]=r[j];s=j;
+    }
+    r[s]=rc;
+}
+
+void creatheap (int r[])
+{
+    int i,n;
+    n=k;
+    for(i=n/2;i>0;--i)
+        heapadjust(r,i,n);
+}
+
+void heapsort(int r[])
+{
+	int i,x;
+	creatheap(r);
+	for(i=k;i>1;--i)
+	{
+		x=r[1];
+		r[1]=r[i];
+		r[i]=x;
+		heapadjust(r,1,i-1);
+	}
+}
+
+
+
+int main()
+{
+    int a;
+    putin(r,k);
+    heapsort(r);
+    for(a=1;a<=k;a++)
+    cout << r[a] << endl;
+    return 0;
+}
