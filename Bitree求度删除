@@ -51,7 +51,21 @@ int NodeCount2(BiTree T)
     return n2+NodeCount2(T->lchild)+NodeCount2(T->rchild);
    /***********************************/
 }
-
+int Depth(BiTree T)
+{
+   //计算二叉树T的深度
+   /****在此下面完成代码***************/
+    int m,n;
+    if(T==NULL) return 0;
+    else
+    {
+        m=Depth(T->lchild);
+        n=Depth(T->rchild);
+        if(m>n) return(m+1);
+        else return(n+1);
+    }
+   /***********************************/
+}
 void DestroyBitree(BiTree& T)
 {
    /****在此下面完成代码***************/
