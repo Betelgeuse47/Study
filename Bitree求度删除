@@ -1,0 +1,76 @@
+#include<iostream>
+#include<cstdlib>
+#include<cstdio>
+using namespace std;
+
+typedef char TElemType;
+//二叉树的二叉链表存储表示
+typedef struct BiTNode {
+   TElemType data;                      //结点数据域
+   struct BiTNode *lchild, *rchild; //左右孩子指针
+} BiTNode, *BiTree;
+
+void CreateBiTree(BiTree &T)
+{
+   //按先序次序输入二叉树中结点的值（一个字符），创建二叉链表表示的二叉树T
+   TElemType ch;
+
+   //此处和教材的不同是，要处理多组数据，输入ch如果遇到EOF，应该结束程序
+   //所以main函数用while(1)
+   if(!(cin >> ch)) exit(0);       //用此行替换教材上的语句：cin>>ch;   实现若输入遇到EOF（即-1）就退出，避免死循环。
+   /****在此下面完成代码***************/
+    if(ch=='#') T=NULL;
+    else{
+    T=new BiTNode;
+    T->data=ch;
+    CreateBiTree(T->lchild);
+    CreateBiTree(T->rchild);
+    }
+   /***********************************/
+}   //CreateBiTree
+
+//用算法5.6 统计二叉树的结点个数
+int NodeCount(BiTree T)
+{
+   //统计二叉树的结点个数
+   /****在此下面完成代码***************/
+    if(T==NULL) return 0;
+    else return NodeCount(T->lchild)+NodeCount(T->rchild)+1;
+   /***********************************/
+}
+
+
+//用算法5.6_2 统计二叉树中度为2的结点个数
+int NodeCount2(BiTree T)
+{
+   //统计二叉树中度为2的结点个数
+   /****在此下面完成代码***************/
+    int n2;
+    if(T==NULL) return 0;
+    n2=(T->lchild)&&(T->rchild);
+    return n2+NodeCount2(T->lchild)+NodeCount2(T->rchild);
+   /***********************************/
+}
+
+void DestroyBitree(BiTree& T)
+{
+   /****在此下面完成代码***************/
+    if(T)
+    {
+        DestroyBitree(T->lchild);
+        DestroyBitree(T->rchild);
+        free(T);
+    }
+   /***********************************/
+}
+
+int main()
+{
+   BiTree tree;
+   while(1) {
+      CreateBiTree(tree);
+      cout << NodeCount(tree) << ' ' << NodeCount2(tree);
+      cout << endl;
+      DestroyBitree(tree);
+   }
+}
