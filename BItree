@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cstdio>
+#include <string.h>
+#include <math.h>
+using namespace std;
+typedef struct Bitnode{
+int data;
+struct Bitnode *lc,*rc;
+}Bitnode,*Bitree;
+
+void createbitree(Bitree &T)
+{
+    int ch;
+    cin>>ch;
+    if(ch==0)T=NULL;
+    else
+    {
+        T=new Bitnode;
+    T->data=ch;
+    createbitree(T->lc);
+    createbitree(T->rc);
+    }
+}
+void zhongxu(Bitree T)
+{
+    if(T)
+    {
+        zhongxu(T->lc);
+        cout<<T->data<<" ";
+        zhongxu(T->rc);
+    }
+}
+void xianxu(Bitree T)
+{
+    if(T)
+    {
+        cout<<T->data<<" ";
+        xianxu(T->lc);
+        xianxu(T->rc);
+    }
+}
+void houxu(Bitree T)
+{
+    if(T)
+    {
+        houxu(T->lc);
+        houxu(T->rc);
+        cout<<T->data<<" ";
+    }
+}
+
+int main()
+{
+    Bitree T;
+    createbitree(T);
+    xianxu(T);
+    cout<<"\n";
+    zhongxu(T);
+    cout<<"\n";
+    houxu(T);
+    cout<<"\n";
+    return 0;
+}
